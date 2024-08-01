@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"simple-res-api/config"
 
 	"github.com/labstack/echo/v4"
 )
@@ -13,5 +14,15 @@ func main() {
 			"hello": "world",
 		})
 	})
+	// Connect To Database
+	config.DatabaseInit()
+	gorm := config.DB()
+
+	dbGorm, err := gorm.DB()
+	if err != nil {
+		panic(err)
+	}
+
+	dbGorm.Ping()
 	e.Logger.Fatal(e.Start(":8080"))
 }
