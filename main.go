@@ -1,8 +1,9 @@
 package main
 
 import (
+	"hello/config"
+	"hello/controller"
 	"net/http"
-	"simple-res-api/config"
 
 	"github.com/labstack/echo/v4"
 )
@@ -24,5 +25,8 @@ func main() {
 	}
 
 	dbGorm.Ping()
+	e = echo.New()
+
+	e.POST("/", controller.CreateBook)
 	e.Logger.Fatal(e.Start(":8080"))
 }
